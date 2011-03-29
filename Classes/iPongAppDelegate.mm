@@ -10,7 +10,7 @@
 
 #import "iPongAppDelegate.h"
 #import "GameConfig.h"
-#import "HelloWorldScene.h"
+#import "iPongLayer.h"
 #import "RootViewController.h"
 
 @implementation iPongAppDelegate
@@ -109,7 +109,7 @@
 	[self removeStartupFlicker];
 	
 	// Run the intro Scene
-	[[CCDirector sharedDirector] runWithScene: [HelloWorld scene]];		
+	[[CCDirector sharedDirector] runWithScene: [iPongLayer scene]];		
 }
 
 

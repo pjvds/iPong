@@ -1,14 +1,14 @@
 #define PTM_RATIO 32
 
-#import "HelloWorldScene.h"
+#import "iPongLayer.h"
 
 
-@implementation HelloWorld
+@implementation iPongLayer
 
 + (id)scene {
     
     CCScene *scene = [CCScene node];
-    HelloWorld *layer = [HelloWorld node];
+    iPongLayer *layer = [iPongLayer node];
     [scene addChild:layer];
     return scene;
     

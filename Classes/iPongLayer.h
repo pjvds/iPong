@@ -1,7 +1,7 @@
 #import "cocos2d.h"
 #import "Box2D.h"
 
-@interface HelloWorld : CCLayer {  
+@interface iPongLayer : CCLayer {  
     b2MouseJoint *_mouseJoint;
     b2World *_world;
     b2Body *_groundBody;
