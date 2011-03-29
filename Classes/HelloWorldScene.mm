@@ -43,7 +43,7 @@
 
 - (void)setupPlayer1Brick{
     CCSprite *brick = [CCSprite spriteWithFile:@"whitedot.png"
-                                           rect:CGRectMake(0,0, 15, 15)];
+                                           rect:CGRectMake(50, 50, 50, 50)];
     brick.position = ccp(10,10);
     [self addChild:brick];
     
@@ -52,7 +52,7 @@
     brickBodyDef.position.Set(brick.position.x/PTM_RATIO, 
                               brick.position.y/PTM_RATIO);
     brickBodyDef.userData = brick;
-    b2Body *brickBody = _world->CreateBody(&brickBodyDef);
+    _p1BrickBody = _world->CreateBody(&brickBodyDef);
     
     b2PolygonShape brickShape;
     brickShape.SetAsBox(brick.contentSize.width/PTM_RATIO/2,
@@ -61,7 +61,7 @@
     brickShapeDef.shape = &brickShape;
     brickShapeDef.density = 10.0;
     brickShapeDef.isSensor = true;
-    brickBody->CreateFixture(&brickShapeDef);
+    _p1BrickFixture = _p1BrickBody->CreateFixture(&brickShapeDef);
 }
 
 - (void) setupBall{
@@ -94,17 +94,80 @@
     ballBody->ApplyLinearImpulse(force, ballBodyDef.position);
 }
 
+- (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    if (_mouseJoint != NULL) {
+        return;
+    }
+    
+    UITouch *myTouch = [touches anyObject];
+    CGPoint location = [myTouch locationInView:[myTouch view]];
+    location = [[CCDirector sharedDirector] convertToGL:location];
+    b2Vec2 locationWorld = b2Vec2(location.x/PTM_RATIO, location.y/PTM_RATIO);
+    
+    if (_p1BrickFixture->TestPoint(locationWorld)) {
+        b2MouseJointDef md;
+        md.bodyA = _groundBody;
+        md.bodyB = _p1BrickBody;
+        md.target = locationWorld;
+        md.collideConnected = true;
+        md.maxForce = 1000.0f * _p1BrickBody->GetMass();
+        
+        _mouseJoint = (b2MouseJoint *)_world->CreateJoint(&md);
+        _p1BrickBody->SetAwake(true);
+    }
+    
+}
 
+-(void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    if (_mouseJoint == NULL) return;
+    
+    UITouch *myTouch = [touches anyObject];
+    CGPoint location = [myTouch locationInView:[myTouch view]];
+    location = [[CCDirector sharedDirector] convertToGL:location];
+    b2Vec2 locationWorld = b2Vec2(location.x/PTM_RATIO, location.y/PTM_RATIO);
+    
+    _mouseJoint->SetTarget(locationWorld);
+    
+}
+
+-(void)ccTouchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    if (_mouseJoint) {
+        _world->DestroyJoint(_mouseJoint);
+        _mouseJoint = NULL;
+    }
+    
+}
+
+- (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    if (_mouseJoint) {
+        _world->DestroyJoint(_mouseJoint);
+        _mouseJoint = NULL;
+    }  
+}
 
 - (id)init {
     
     if ((self=[super init])) {
+        
         [self setupWorld];
         [self setupGroundBody];
         [self setupBall];
         [self setupPlayer1Brick];
 
         [self schedule:@selector(tick:)];
+        
+        self.isTouchEnabled = YES;
+        
+        // Restrict paddle along the x axis
+        b2PrismaticJointDef jointDef;
+        b2Vec2 worldAxis(1.0f, 0.0f);
+        jointDef.collideConnected = true;
+        jointDef.Initialize(_p1BrickBody, _groundBody, 
+                            _p1BrickBody->GetWorldCenter(), worldAxis);
+        _world->CreateJoint(&jointDef);
     }
     return self;
 }
