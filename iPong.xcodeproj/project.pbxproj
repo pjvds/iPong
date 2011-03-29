@@ -1634,6 +1634,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = iPong;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Debug;
@@ -1656,6 +1657,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = iPong;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Release;

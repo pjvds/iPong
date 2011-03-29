@@ -10,4 +10,6 @@
 
 + (id) scene;
 
+- (b2Vec2) getStartingForce;
+- (void) setupWorld;	
 @end
