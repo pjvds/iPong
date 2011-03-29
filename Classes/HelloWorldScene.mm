@@ -35,12 +35,33 @@
     _bottomFixture = _groundBody->CreateFixture(&groundBoxDef);
     groundBox.SetAsEdge(b2Vec2(0,0), b2Vec2(0, winSize.height/PTM_RATIO));
     _groundBody->CreateFixture(&groundBoxDef);
-    groundBox.SetAsEdge(b2Vec2(0, winSize.height/PTM_RATIO), b2Vec2(winSize.width/PTM_RATIO, 
-                                                                    winSize.height/PTM_RATIO));
+    groundBox.SetAsEdge(b2Vec2(0, winSize.height/PTM_RATIO), b2Vec2(winSize.width/PTM_RATIO, winSize.height/PTM_RATIO));
     _groundBody->CreateFixture(&groundBoxDef);
-    groundBox.SetAsEdge(b2Vec2(winSize.width/PTM_RATIO, winSize.height/PTM_RATIO), 
-                        b2Vec2(winSize.width/PTM_RATIO, 0));
+    groundBox.SetAsEdge(b2Vec2(winSize.width/PTM_RATIO, winSize.height/PTM_RATIO), b2Vec2(winSize.width/PTM_RATIO, 0));
     _groundBody->CreateFixture(&groundBoxDef);
+}
+
+- (void)setupPlayer1Brick{
+    CCSprite *brick = [CCSprite spriteWithFile:@"whitedot.png"
+                                           rect:CGRectMake(0,0, 15, 15)];
+    brick.position = ccp(10,10);
+    [self addChild:brick];
+    
+    b2BodyDef brickBodyDef;
+    brickBodyDef.type = b2_dynamicBody;
+    brickBodyDef.position.Set(brick.position.x/PTM_RATIO, 
+                              brick.position.y/PTM_RATIO);
+    brickBodyDef.userData = brick;
+    b2Body *brickBody = _world->CreateBody(&brickBodyDef);
+    
+    b2PolygonShape brickShape;
+    brickShape.SetAsBox(brick.contentSize.width/PTM_RATIO/2,
+                         brick.contentSize.height/PTM_RATIO/2);
+    b2FixtureDef brickShapeDef;
+    brickShapeDef.shape = &brickShape;
+    brickShapeDef.density = 10.0;
+    brickShapeDef.isSensor = true;
+    brickBody->CreateFixture(&brickShapeDef);
 }
 
 - (void) setupBall{
@@ -81,6 +102,7 @@
         [self setupWorld];
         [self setupGroundBody];
         [self setupBall];
+        [self setupPlayer1Brick];
 
         [self schedule:@selector(tick:)];
     }
