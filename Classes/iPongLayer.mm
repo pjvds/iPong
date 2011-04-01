@@ -1,5 +1,8 @@
 #define PTM_RATIO 32
 
+#import "cocos2d.h"
+#import "Box2D.h"
+#import "GLES-Render.h"
 #import "iPongLayer.h"
 #import "Paddle.h"
 
@@ -64,7 +67,7 @@
 }
 
 - (void)setupPlayer1Brick{
-    _paddle = [[Paddle alloc] initWithWorld:_world];
+    _paddle = [[Paddle alloc] initWithWorld: _world: _groundBody];
     [self addChild:_paddle.Sprite];
 }
 

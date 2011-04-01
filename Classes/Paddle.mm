@@ -8,15 +8,13 @@
 @implementation Paddle
 @synthesize Sprite, Body, Fixture;
 
-+(id) initWithWorld:(b2World*)world {
-    return [self initWithWorld: world];
-}
-
--(id) initWithWorld: (b2World*) world {
+-(id) initWithWorld: (b2World*) world: (b2Body*) groundBody {
     if ((self=[super init])) {
+        // Create sprite.
         Sprite = [CCSprite spriteWithFile:@"whitedot.png"
-                                              rect:CGRectMake(50, 50, 50, 50)];
-        Sprite.position = ccp(10,10);
+                                              rect:CGRectMake(50, 50, 50, 100)];
+        Sprite.position = ccp(50,50);
+        
         
         b2BodyDef bodyDef;
         bodyDef.type = b2_dynamicBody;
@@ -28,13 +26,21 @@
         b2PolygonShape brickShape;
         brickShape.SetAsBox(Sprite.contentSize.width/PTM_RATIO/2,
                             Sprite.contentSize.height/PTM_RATIO/2);
+        
         b2FixtureDef shapeDef;
-        shapeDef.shape = &brickShape;
-        shapeDef.density = 10.0;
-        shapeDef.isSensor = true;
+        shapeDef.shape = &brickShape;        
+        shapeDef.density = 5.0f;
+        shapeDef.friction = 0.4f;
+        shapeDef.restitution = 0.1f;
         Fixture = Body->CreateFixture(&shapeDef);
         
-        
+        // Restrict paddle along the x axis
+        b2PrismaticJointDef jointDef;
+        b2Vec2 worldAxis(0.0f, 1.0f);
+        jointDef.collideConnected = true;
+        jointDef.Initialize(Body, groundBody,
+                            Body->GetWorldCenter(), worldAxis);
+        world->CreateJoint(&jointDef);
     }
     return self;
 }
