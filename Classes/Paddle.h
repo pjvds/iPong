@@ -1,9 +1,10 @@
 #import "cocos2d.h"
 #import "Box2D.h"
+#import <CCTouchDispatcher.h>
 #import <Foundation/Foundation.h>
 
 
-@interface Paddle : NSObject {
+@interface Paddle : NSObject<CCTargetedTouchDelegate> {
     CCSprite* Sprite;
     b2Body* Body;
     b2Fixture* Fixture;

@@ -75,60 +75,7 @@
     _ball = [[Ball alloc] spawn:self :_world : _groundBody: b2Vec2(10,10)];
 }
 
-- (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    
-    if (_mouseJoint != NULL) {
-        return;
-    }
-    
-    UITouch *myTouch = [touches anyObject];
-    CGPoint location = [myTouch locationInView:[myTouch view]];
-    location = [[CCDirector sharedDirector] convertToGL:location];
-    b2Vec2 locationWorld = b2Vec2(location.x/PTM_RATIO, location.y/PTM_RATIO);
-    
-    BOOL hit = YES;//[_paddle testPoint:locationWorld];
-    
-    if (hit) {
-        b2MouseJointDef md;
-        md.bodyA = _groundBody;
-        md.bodyB = _paddle.Body;
-        md.target = locationWorld;
-        md.collideConnected = true;
-        md.maxForce = 1000.0f * _paddle.Body->GetMass();
-        
-        _mouseJoint = (b2MouseJoint *)_world->CreateJoint(&md);
-        _paddle.Body->SetAwake(true);
-    }
-}
 
--(void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    
-    if (_mouseJoint == NULL) return;
-    
-    UITouch *myTouch = [touches anyObject];
-    CGPoint location = [myTouch locationInView:[myTouch view]];
-    location = [[CCDirector sharedDirector] convertToGL:location];
-    b2Vec2 locationWorld = b2Vec2(location.x/PTM_RATIO, location.y/PTM_RATIO);
-    
-    _mouseJoint->SetTarget(locationWorld);
-    
-}
-
--(void)ccTouchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-    
-    if (_mouseJoint) {
-        _world->DestroyJoint(_mouseJoint);
-        _mouseJoint = NULL;
-    }
-    
-}
-
-- (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    if (_mouseJoint) {
-        _world->DestroyJoint(_mouseJoint);
-        _mouseJoint = NULL;
-    }  
-}
 
 - (void)tick:(ccTime) dt {
     _world->Step(dt, 10, 10);

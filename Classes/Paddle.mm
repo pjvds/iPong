@@ -4,7 +4,6 @@
 #import "Box2D.h"
 #import "Paddle.h"
 
-
 @implementation Paddle
 @synthesize Sprite, Body, Fixture;
 
@@ -41,8 +40,19 @@
         jointDef.Initialize(Body, groundBody,
                             Body->GetWorldCenter(), worldAxis);
         world->CreateJoint(&jointDef);
+        
+        [[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:-1 swallowsTouches:YES];
     }
     return self;
+}
+
+-(BOOL) ccTouchBegan:(UITouch*)touch withEvent:(UIEvent *)event
+{
+    
+	CGPoint location = [touch locationInView: [touch view]];
+	CCLOG(@"BEGAN location is %.2f x %.2f", location.x,location.y);
+    
+    return FALSE;
 }
 
 -(BOOL) testPoint: (b2Vec2) point{
