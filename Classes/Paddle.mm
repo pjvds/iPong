@@ -67,7 +67,7 @@
     
     BOOL hit = CGRectContainsPoint(_touchArea, location);
     
-    CCLOG(@"Touch inside touch area: %", hit);
+    CCLOG(@"Touch inside touch area: %d", hit);
     
     if (hit) {
         b2MouseJointDef md;
@@ -93,7 +93,7 @@
     CGPoint location = [touch locationInView:[touch view]];
     location = [[CCDirector sharedDirector] convertToGL:location];
     b2Vec2 bodyPos = Body->GetPosition();
-    b2Vec2 locationWorld = b2Vec2(bodyPos.x, location.y/PTM_RATIO);
+    b2Vec2 locationWorld = b2Vec2(location.x/PTM_RATIO, location.y/PTM_RATIO);
     
     CCLOG(@"MOVED location is %.2f x %.2f", locationWorld.x, locationWorld.y);
     

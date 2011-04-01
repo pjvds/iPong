@@ -20,5 +20,5 @@
 - (void) setupWorld;
 - (void)setupGroundBody;
 - (void) setupBall;
-- (void)setupPlayer1Brick;
+- (void)spawnPaddles;
 @end

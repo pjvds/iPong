@@ -30,7 +30,7 @@
         [self setupWorld];
         [self setupGroundBody];
         [self setupBall];
-        [self setupPlayer1Brick];
+        [self spawnPaddles];
         
         [self schedule:@selector(tick:)];
         [[[CCDirector sharedDirector] openGLView] setMultipleTouchEnabled:YES];
@@ -67,7 +67,7 @@
     _groundBody->CreateFixture(&groundBoxDef);
 }
 
-- (void)setupPlayer1Brick{
+- (void)spawnPaddles{
     CGSize winSize = [CCDirector sharedDirector].winSize;
     
     _leftPaddle = [[Paddle alloc] initWithWorld: _world: _groundBody: ccp(50,50): CGRectMake(0,0, winSize.width/2,winSize.height)];
