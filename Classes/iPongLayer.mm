@@ -75,8 +75,6 @@
     _ball = [[Ball alloc] spawn:self :_world : _groundBody: b2Vec2(10,10)];
 }
 
-
-
 - (void)tick:(ccTime) dt {
     _world->Step(dt, 10, 10);
     

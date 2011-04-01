@@ -9,6 +9,9 @@
 
 -(id) initWithWorld: (b2World*) world: (b2Body*) groundBody {
     if ((self=[super init])) {
+        World = world;
+        Ground = groundBody;
+        
         // Create sprite.
         Sprite = [CCSprite spriteWithFile:@"whitedot.png"
                                               rect:CGRectMake(50, 50, 50, 100)];
@@ -46,17 +49,65 @@
     return self;
 }
 
--(BOOL) ccTouchBegan:(UITouch*)touch withEvent:(UIEvent *)event
-{
+- (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
+    BOOL touched = NO;
     
-	CGPoint location = [touch locationInView: [touch view]];
-	CCLOG(@"BEGAN location is %.2f x %.2f", location.x,location.y);
+    if (_mouseJoint != NULL) {
+        return touched;
+    }
     
-    return FALSE;
+    CGPoint location = [touch locationInView:[touch view]];
+    CCLOG(@"BEGAN location is %.2f x %.2f", location.x,location.y);
+    
+    location = [[CCDirector sharedDirector] convertToGL:location];
+    b2Vec2 locationWorld = b2Vec2(location.x/PTM_RATIO, location.y/PTM_RATIO);
+    
+    BOOL hit = YES;//[_paddle testPoint:locationWorld];
+    
+    if (hit) {
+        b2MouseJointDef md;
+        md.bodyA = Ground;
+        md.bodyB = Body;
+        md.target = locationWorld;
+        md.collideConnected = true;
+        md.maxForce = 1000.0f * Body->GetMass();
+        
+        _mouseJoint = (b2MouseJoint *)World->CreateJoint(&md);
+        Body->SetAwake(true);
+        
+        touched = YES;
+    }
+    
+    return touched;
 }
 
--(BOOL) testPoint: (b2Vec2) point{
-    return Fixture->TestPoint(point);
+-(void)ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event {
+    
+    if (_mouseJoint == NULL) return;
+    
+    CGPoint location = [touch locationInView:[touch view]];
+    location = [[CCDirector sharedDirector] convertToGL:location];
+    b2Vec2 bodyPos = Body->GetPosition();
+    b2Vec2 locationWorld = b2Vec2(location.x/PTM_RATIO,	location.y/PTM_RATIO);
+    
+    _mouseJoint->SetTarget(locationWorld);
+    
+}
+
+-(void)ccTouchCancelled:(UITouch *)touch withEvent:(UIEvent *)event {
+    
+    if (_mouseJoint) {
+        World->DestroyJoint(_mouseJoint);
+        _mouseJoint = NULL;
+    }
+    
+}
+
+- (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    if (_mouseJoint) {
+        World->DestroyJoint(_mouseJoint);
+        _mouseJoint = NULL;
+    }  
 }
 
 -(void)dealloc{

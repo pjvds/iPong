@@ -5,9 +5,12 @@
 
 
 @interface Paddle : NSObject<CCTargetedTouchDelegate> {
-    CCSprite* Sprite;
-    b2Body* Body;
-    b2Fixture* Fixture;
+    b2World *World;
+    b2Body *Ground;
+    CCSprite *Sprite;
+    b2Body *Body;
+    b2Fixture *Fixture;
+    b2MouseJoint *_mouseJoint;
 }
 
 @property(readonly,assign) CCSprite* Sprite;
