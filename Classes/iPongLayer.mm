@@ -61,20 +61,22 @@
 }
 
 - (void)setupGroundBody {
+    
     // Create edges around the entire screen
     b2BodyDef groundBodyDef;
     groundBodyDef.position.Set(0,0);
     _groundBody = _world->CreateBody(&groundBodyDef);
     b2PolygonShape groundBox;
+
     b2FixtureDef groundBoxDef;
     groundBoxDef.shape = &groundBox;
+    
+    // top wall.
     groundBox.SetAsEdge(b2Vec2(0,0), b2Vec2(winSize.width/PTM_RATIO, 0));
     _bottomFixture = _groundBody->CreateFixture(&groundBoxDef);
-    groundBox.SetAsEdge(b2Vec2(0,0), b2Vec2(0, winSize.height/PTM_RATIO));
-    _groundBody->CreateFixture(&groundBoxDef);
+   
+    // bottom wall.
     groundBox.SetAsEdge(b2Vec2(0, winSize.height/PTM_RATIO), b2Vec2(winSize.width/PTM_RATIO, winSize.height/PTM_RATIO));
-    _groundBody->CreateFixture(&groundBoxDef);
-    groundBox.SetAsEdge(b2Vec2(winSize.width/PTM_RATIO, winSize.height/PTM_RATIO), b2Vec2(winSize.width/PTM_RATIO, 0));
     _groundBody->CreateFixture(&groundBoxDef);
 }
 
@@ -112,6 +114,16 @@
                                   b->GetPosition().y * PTM_RATIO);
             sprite.rotation = -1 * CC_RADIANS_TO_DEGREES(b->GetAngle());
         }
+    }
+    
+    b2Vec2 ballPos = _ball.Body->GetPosition();
+    ballPos *= PTM_RATIO;
+    
+    
+    if(ballPos.x < 0){
+        [_ball respawnRight];
+    } else if(ballPos.x > winSize.width){
+        [_ball respawnLeft];
     }
 }
 

@@ -12,5 +12,7 @@
 @property(readonly,assign) b2Fixture* Fixture;
 
 -(id) spawn: (CCLayer*) layer: (b2World*) world: (b2Body*) groundBody: (b2Vec2) force;
+-(void) respawnLeft;
+-(void) respawnRight;
 -(void)dealloc;
 @end

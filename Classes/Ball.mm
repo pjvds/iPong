@@ -35,6 +35,32 @@
     return self;
 }
 
+-(void) reset {
+    CGSize winSize = [CCDirector sharedDirector].winSize;
+    float32 angle = Body->GetAngle();
+    
+    Body->SetLinearDamping(0);
+    Body->SetAngularDamping(0);
+    Body->SetAngularVelocity(0);
+    Body->SetLinearVelocity(b2Vec2(0,0));
+    
+    b2Vec2 center = b2Vec2(winSize.width/2/PTM_RATIO, winSize.height/2/PTM_RATIO);
+    Body->SetTransform(center, angle);    
+}
+
+-(void) respawnLeft {
+    [self reset];
+
+    b2Vec2 force = b2Vec2(-10,10);
+    Body->ApplyLinearImpulse(force, Body->GetPosition());
+}
+
+-(void) respawnRight{
+    [self reset];
+    
+    b2Vec2 force = b2Vec2(10,0);
+    Body->ApplyLinearImpulse(force, Body->GetPosition());
+}
 
 -(void)dealloc{
     [super dealloc];
