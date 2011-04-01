@@ -103,7 +103,7 @@
     
 }
 
-- (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
     if (_mouseJoint) {
         World->DestroyJoint(_mouseJoint);
         _mouseJoint = NULL;
