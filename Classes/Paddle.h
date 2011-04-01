@@ -18,6 +18,6 @@
 @property(readonly,assign) b2Body* Body;
 @property(readonly,assign) b2Fixture* Fixture;
 
--(id) initWithWorld: (b2World*) world: (b2Body*) groundBody: (CGRect) touchArea;
+-(id) initWithWorld: (b2World*) world: (b2Body*) groundBody: (CGPoint) startPosition: (CGRect) touchArea;
 -(void)dealloc;
 @end

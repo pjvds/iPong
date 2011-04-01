@@ -69,10 +69,10 @@
 - (void)setupPlayer1Brick{
     CGSize winSize = [CCDirector sharedDirector].winSize;
     
-    _leftPaddle = [[Paddle alloc] initWithWorld: _world: _groundBody: CGRectMake(0,0, winSize.width/2,winSize.height)];
+    _leftPaddle = [[Paddle alloc] initWithWorld: _world: _groundBody: ccp(50,50): CGRectMake(0,0, winSize.width/2,winSize.height)];
     [self addChild:_leftPaddle.Sprite];
     
-    _rightPaddle = [[Paddle alloc] initWithWorld: _world: _groundBody: CGRectMake(winSize.width/2,0,winSize.width/2,winSize.height)];
+    _rightPaddle = [[Paddle alloc] initWithWorld: _world: _groundBody: ccp(winSize.width-50, 50): CGRectMake(winSize.width/2,0,winSize.width/2,winSize.height)];
     [self addChild:_rightPaddle.Sprite];
 }
 

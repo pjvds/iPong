@@ -7,7 +7,7 @@
 @implementation Paddle
 @synthesize Sprite, Body, Fixture;
 
--(id) initWithWorld: (b2World*) world: (b2Body*) groundBody: (CGRect) touchArea {
+-(id) initWithWorld: (b2World*) world: (b2Body*) groundBody: (CGPoint) startPosition: (CGRect) touchArea {
     if ((self=[super init])) {
         World = world;
         Ground = groundBody;
@@ -16,7 +16,7 @@
         // Create sprite.
         Sprite = [CCSprite spriteWithFile:@"whitedot.png"
                                               rect:CGRectMake(50, 50, 50, 100)];
-        Sprite.position = ccp(50,50);
+        Sprite.position = startPosition;
         
         
         b2BodyDef bodyDef;
