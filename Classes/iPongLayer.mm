@@ -1,6 +1,7 @@
 #define PTM_RATIO 32
 
 #import "iPongLayer.h"
+#import "Paddle.h"
 
 
 @implementation iPongLayer
@@ -18,6 +19,7 @@
     return b2Vec2(10,10);
 }
 
+
 - (id)init {
     
     if ((self=[super init])) {
@@ -30,14 +32,6 @@
         [self schedule:@selector(tick:)];
         
         self.isTouchEnabled = YES;
-        
-        // Restrict paddle along the x axis
-        b2PrismaticJointDef jointDef;
-        b2Vec2 worldAxis(1.0f, 0.0f);
-        jointDef.collideConnected = true;
-        jointDef.Initialize(_p1BrickBody, _groundBody, 
-                            _p1BrickBody->GetWorldCenter(), worldAxis);
-        _world->CreateJoint(&jointDef);
     }
     return self;
 }
@@ -70,26 +64,8 @@
 }
 
 - (void)setupPlayer1Brick{
-    CCSprite *brick = [CCSprite spriteWithFile:@"whitedot.png"
-                                           rect:CGRectMake(50, 50, 50, 50)];
-    brick.position = ccp(10,10);
-    [self addChild:brick];
-    
-    b2BodyDef brickBodyDef;
-    brickBodyDef.type = b2_dynamicBody;
-    brickBodyDef.position.Set(brick.position.x/PTM_RATIO, 
-                              brick.position.y/PTM_RATIO);
-    brickBodyDef.userData = brick;
-    _p1BrickBody = _world->CreateBody(&brickBodyDef);
-    
-    b2PolygonShape brickShape;
-    brickShape.SetAsBox(brick.contentSize.width/PTM_RATIO/2,
-                         brick.contentSize.height/PTM_RATIO/2);
-    b2FixtureDef brickShapeDef;
-    brickShapeDef.shape = &brickShape;
-    brickShapeDef.density = 10.0;
-    brickShapeDef.isSensor = true;
-    _p1BrickFixture = _p1BrickBody->CreateFixture(&brickShapeDef);
+    _paddle = [[Paddle alloc] initWithWorld:_world];
+    [self addChild:_paddle.Sprite];
 }
 
 - (void) setupBall{
@@ -115,7 +91,7 @@
     b2FixtureDef ballShapeDef;
     ballShapeDef.shape = &circle;
     ballShapeDef.density = 1.0f;
-    ballShapeDef.friction = 0.f;
+    ballShapeDef.friction = 0.0f;
     ballShapeDef.restitution = 1.0f;
     _ballFixture = ballBody->CreateFixture(&ballShapeDef);        
     b2Vec2 force = [iPongLayer getStartingForce];
@@ -133,18 +109,19 @@
     location = [[CCDirector sharedDirector] convertToGL:location];
     b2Vec2 locationWorld = b2Vec2(location.x/PTM_RATIO, location.y/PTM_RATIO);
     
-    if (_p1BrickFixture->TestPoint(locationWorld)) {
+    BOOL hit = [_paddle testPoint:locationWorld];
+    
+    if (hit) {
         b2MouseJointDef md;
         md.bodyA = _groundBody;
-        md.bodyB = _p1BrickBody;
+        md.bodyB = _paddle.Body;
         md.target = locationWorld;
         md.collideConnected = true;
-        md.maxForce = 1000.0f * _p1BrickBody->GetMass();
+        md.maxForce = 1000.0f * _paddle.Body->GetMass();
         
         _mouseJoint = (b2MouseJoint *)_world->CreateJoint(&md);
-        _p1BrickBody->SetAwake(true);
+        _paddle.Body->SetAwake(true);
     }
-    
 }
 
 -(void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {

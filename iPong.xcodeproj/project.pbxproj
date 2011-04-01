@@ -141,6 +141,7 @@
 		50F4144B10692EE7002A0D5E /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 50F4144610692EE7002A0D5E /* Icon.png */; };
 		DA395A5D1345BD2F00A254C1 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DA395A5C1345BD2F00A254C1 /* README.md */; };
 		DAC94A991337F85A005F58F2 /* Ball.png in Resources */ = {isa = PBXBuildFile; fileRef = DAC94A981337F85A005F58F2 /* Ball.png */; };
+		DADFFED01345F4EA00551C4E /* Paddle.mm in Sources */ = {isa = PBXBuildFile; fileRef = DADFFECF1345F4EA00551C4E /* Paddle.mm */; };
 		DAE725D213427B4D0028394E /* whitedot.png in Resources */ = {isa = PBXBuildFile; fileRef = DAE725D113427B4D0028394E /* whitedot.png */; };
 		DC6640030F83B3EA000B3E49 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */; };
 		DC6640050F83B3EA000B3E49 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640040F83B3EA000B3E49 /* OpenAL.framework */; };
@@ -321,7 +322,7 @@
 		E02BBA0E126CC28A006E46A2 /* ZipUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = E02BB968126CC28A006E46A2 /* ZipUtils.h */; };
 		E02BBA0F126CC28A006E46A2 /* ZipUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = E02BB969126CC28A006E46A2 /* ZipUtils.m */; };
 		E02BBA11126CC29D006E46A2 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = E02BBA10126CC29D006E46A2 /* iTunesArtwork */; };
-		E0F81064120A17DF005866B8 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0F81063120A17DF005866B8 /* RootViewController.m */; };
+		E0F81064120A17DF005866B8 /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E0F81063120A17DF005866B8 /* RootViewController.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -470,6 +471,8 @@
 		50F4144710692EE7002A0D5E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA395A5C1345BD2F00A254C1 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		DAC94A981337F85A005F58F2 /* Ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ball.png; sourceTree = "<group>"; };
+		DADFFECE1345F4EA00551C4E /* Paddle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Paddle.h; sourceTree = "<group>"; };
+		DADFFECF1345F4EA00551C4E /* Paddle.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Paddle.mm; sourceTree = "<group>"; };
 		DAE725D113427B4D0028394E /* whitedot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whitedot.png; sourceTree = "<group>"; };
 		DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		DC6640040F83B3EA000B3E49 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -653,7 +656,7 @@
 		E0C5506C11FA3ABC00B9E4CB /* LICENSE.box2d */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.box2d; sourceTree = "<group>"; };
 		E0F81061120A17DF005866B8 /* GameConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameConfig.h; sourceTree = "<group>"; };
 		E0F81062120A17DF005866B8 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
-		E0F81063120A17DF005866B8 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		E0F81063120A17DF005866B8 /* RootViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RootViewController.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -751,9 +754,11 @@
 				506EDC2F102F528A00A389B3 /* iPongLayer.h */,
 				506EDC30102F528A00A389B3 /* iPongLayer.mm */,
 				E0F81062120A17DF005866B8 /* RootViewController.h */,
-				E0F81063120A17DF005866B8 /* RootViewController.m */,
+				E0F81063120A17DF005866B8 /* RootViewController.mm */,
 				1F3B9A2C0EF2145700286867 /* iPongAppDelegate.h */,
 				1F3B9A2B0EF2145700286867 /* iPongAppDelegate.mm */,
+				DADFFECE1345F4EA00551C4E /* Paddle.h */,
+				DADFFECF1345F4EA00551C4E /* Paddle.mm */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1468,7 +1473,8 @@
 				1F3B9A2D0EF2145700286867 /* iPongAppDelegate.mm in Sources */,
 				506EDC31102F528A00A389B3 /* iPongLayer.mm in Sources */,
 				50F4143910692D7D002A0D5E /* GLES-Render.mm in Sources */,
-				E0F81064120A17DF005866B8 /* RootViewController.m in Sources */,
+				E0F81064120A17DF005866B8 /* RootViewController.mm in Sources */,
+				DADFFED01345F4EA00551C4E /* Paddle.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
