@@ -7,10 +7,11 @@
 @implementation Paddle
 @synthesize Sprite, Body, Fixture;
 
--(id) initWithWorld: (b2World*) world: (b2Body*) groundBody {
+-(id) initWithWorld: (b2World*) world: (b2Body*) groundBody: (CGRect) touchArea {
     if ((self=[super init])) {
         World = world;
         Ground = groundBody;
+        _touchArea = touchArea;
         
         // Create sprite.
         Sprite = [CCSprite spriteWithFile:@"whitedot.png"
@@ -20,6 +21,8 @@
         
         b2BodyDef bodyDef;
         bodyDef.type = b2_dynamicBody;
+        bodyDef.linearDamping = 0.0f;
+        bodyDef.angularDamping = 1000.0f;
         bodyDef.position.Set(Sprite.position.x/PTM_RATIO, 
                                   Sprite.position.y/PTM_RATIO);
         bodyDef.userData = Sprite;
@@ -31,8 +34,8 @@
         
         b2FixtureDef shapeDef;
         shapeDef.shape = &brickShape;        
-        shapeDef.density = 5.0f;
-        shapeDef.friction = 0.4f;
+        shapeDef.density = 1.0f;
+        shapeDef.friction = 0.0f;
         shapeDef.restitution = 0.1f;
         Fixture = Body->CreateFixture(&shapeDef);
         
@@ -62,7 +65,9 @@
     location = [[CCDirector sharedDirector] convertToGL:location];
     b2Vec2 locationWorld = b2Vec2(location.x/PTM_RATIO, location.y/PTM_RATIO);
     
-    BOOL hit = YES;//[_paddle testPoint:locationWorld];
+    BOOL hit = CGRectContainsPoint(_touchArea, location);
+    
+    CCLOG(@"Touch inside touch area: %", hit);
     
     if (hit) {
         b2MouseJointDef md;
@@ -70,7 +75,7 @@
         md.bodyB = Body;
         md.target = locationWorld;
         md.collideConnected = true;
-        md.maxForce = 1000.0f * Body->GetMass();
+        md.maxForce = 250 * Body->GetMass();
         
         _mouseJoint = (b2MouseJoint *)World->CreateJoint(&md);
         Body->SetAwake(true);

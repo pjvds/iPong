@@ -67,8 +67,13 @@
 }
 
 - (void)setupPlayer1Brick{
-    _paddle = [[Paddle alloc] initWithWorld: _world: _groundBody];
-    [self addChild:_paddle.Sprite];
+    CGSize winSize = [CCDirector sharedDirector].winSize;
+    
+    _leftPaddle = [[Paddle alloc] initWithWorld: _world: _groundBody: CGRectMake(0,0, winSize.width/2,winSize.height)];
+    [self addChild:_leftPaddle.Sprite];
+    
+    _rightPaddle = [[Paddle alloc] initWithWorld: _world: _groundBody: CGRectMake(winSize.width/2,0,winSize.width/2,winSize.height)];
+    [self addChild:_rightPaddle.Sprite];
 }
 
 - (void) setupBall{

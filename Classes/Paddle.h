@@ -11,12 +11,13 @@
     b2Body *Body;
     b2Fixture *Fixture;
     b2MouseJoint *_mouseJoint;
+    CGRect _touchArea;
 }
 
 @property(readonly,assign) CCSprite* Sprite;
 @property(readonly,assign) b2Body* Body;
 @property(readonly,assign) b2Fixture* Fixture;
 
--(id) initWithWorld: (b2World*) world: (b2Body*) groundBody;
+-(id) initWithWorld: (b2World*) world: (b2Body*) groundBody: (CGRect) touchArea;
 -(void)dealloc;
 @end

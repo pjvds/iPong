@@ -9,7 +9,8 @@
     b2Body *_groundBody;
     b2Fixture *_bottomFixture;
     b2Fixture *_ballFixture;
-    Paddle *_paddle;
+    Paddle *_leftPaddle;
+    Paddle *_rightPaddle;
     Ball *_ball;
 }
 
