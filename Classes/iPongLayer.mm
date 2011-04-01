@@ -33,6 +33,7 @@
         [self setupPlayer1Brick];
         
         [self schedule:@selector(tick:)];
+        [[[CCDirector sharedDirector] openGLView] setMultipleTouchEnabled:YES];
         
         self.isTouchEnabled = YES;
     }
