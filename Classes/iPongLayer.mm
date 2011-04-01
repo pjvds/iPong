@@ -81,13 +81,13 @@
 }
 
 - (void)spawnScoreboards{
-    _leftScore = [CCLabelTTF labelWithString:@"0" fontName:@"SF Square Head" fontSize:64];
-    _leftScore.position = ccp(winSize.width/2 - 100,winSize.height - 45);
-    [self addChild: _leftScore];
+    _leftScoreLabel = [CCLabelTTF labelWithString:@"0" fontName:@"SF Square Head" fontSize:64];
+    _leftScoreLabel.position = ccp(winSize.width/2 - 100,winSize.height - 45);
+    [self addChild: _leftScoreLabel];
     
-    _rightScore = [CCLabelTTF labelWithString:@"0" fontName:@"SF Square Head" fontSize:64];
-    _rightScore.position = ccp(winSize.width/2 + 100,winSize.height - 45);
-    [self addChild: _rightScore];
+    _rightScoreLabel = [CCLabelTTF labelWithString:@"0" fontName:@"SF Square Head" fontSize:64];
+    _rightScoreLabel.position = ccp(winSize.width/2 + 100,winSize.height - 45);
+    [self addChild: _rightScoreLabel];
 }
 
 - (void)spawnPaddles{
@@ -121,9 +121,13 @@
     
     
     if(ballPos.x < 0){
-        [_ball respawnRight];
-    } else if(ballPos.x > winSize.width){
+        _rightScore++;
+        [_rightScoreLabel setString: [NSString stringWithFormat:@"%d",_rightScore]];
         [_ball respawnLeft];
+    } else if(ballPos.x > winSize.width){
+        _leftScore++;
+        [_leftScoreLabel setString: [NSString stringWithFormat:@"%d",_leftScore]];
+        [_ball respawnRight];
     }
 }
 

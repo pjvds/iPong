@@ -13,8 +13,11 @@
     Paddle *_rightPaddle;
     Ball *_ball;
     
-    CCLabelTTF *_leftScore;
-    CCLabelTTF *_rightScore;
+    int _leftScore;
+    int _rightScore;
+    
+    CCLabelTTF *_leftScoreLabel;
+    CCLabelTTF *_rightScoreLabel;
     
     CGSize winSize;
 }
