@@ -29,6 +29,7 @@
         
         [self setupWorld];
         [self setupGroundBody];
+        [self addBackground];
         [self setupBall];
         [self spawnPaddles];
         
@@ -38,6 +39,17 @@
         self.isTouchEnabled = YES;
     }
     return self;
+}
+
+-(void)addBackground{
+    CGSize winSize = [CCDirector sharedDirector].winSize;
+    CCSprite* lineSprite = [CCSprite spriteWithFile:@"line.png" rect:CGRectMake(0,0, 5, winSize.height*2)];
+    lineSprite.position = ccp(winSize.width/2, 0);
+    
+    ccTexParams params = {GL_LINEAR,GL_LINEAR,GL_REPEAT,GL_REPEAT};
+    [lineSprite.texture setTexParameters: &params];
+    
+    [self addChild: lineSprite];
 }
 
 - (void)setupWorld {
