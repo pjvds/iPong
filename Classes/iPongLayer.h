@@ -1,6 +1,7 @@
 #import "cocos2d.h"
 #import "Box2D.h"
 #import "Paddle.h"
+#import "Ball.h"
 
 @interface iPongLayer : CCLayer {  
     b2MouseJoint *_mouseJoint;
@@ -9,6 +10,7 @@
     b2Fixture *_bottomFixture;
     b2Fixture *_ballFixture;
     Paddle *_paddle;
+    Ball *_ball;
 }
 
 + (id) scene;

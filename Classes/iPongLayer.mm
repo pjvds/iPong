@@ -72,33 +72,7 @@
 }
 
 - (void) setupBall{
-    // Create Ball sprite.
-    CCSprite *ball = [CCSprite spriteWithFile:@"Ball.png"
-                                         rect:CGRectMake(0,0,52,52)];
-    ball.position = ccp(100,100);
-    ball.tag = 1;
-    [self addChild:ball];
-    
-    // Create ball body 
-    b2BodyDef ballBodyDef;
-    ballBodyDef.type = b2_dynamicBody;
-    ballBodyDef.position.Set(100/PTM_RATIO, 100/PTM_RATIO);
-    ballBodyDef.userData = ball;
-    b2Body * ballBody = _world->CreateBody(&ballBodyDef);
-    
-    // Create circle shape
-    b2CircleShape circle;
-    circle.m_radius = 26.0/PTM_RATIO;
-    
-    // Create shape definition and add to body
-    b2FixtureDef ballShapeDef;
-    ballShapeDef.shape = &circle;
-    ballShapeDef.density = 1.0f;
-    ballShapeDef.friction = 0.0f;
-    ballShapeDef.restitution = 1.0f;
-    _ballFixture = ballBody->CreateFixture(&ballShapeDef);        
-    b2Vec2 force = [iPongLayer getStartingForce];
-    ballBody->ApplyLinearImpulse(force, ballBodyDef.position);
+    _ball = [[Ball alloc] spawn:self :_world : _groundBody: b2Vec2(10,10)];
 }
 
 - (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -112,7 +86,7 @@
     location = [[CCDirector sharedDirector] convertToGL:location];
     b2Vec2 locationWorld = b2Vec2(location.x/PTM_RATIO, location.y/PTM_RATIO);
     
-    BOOL hit = [_paddle testPoint:locationWorld];
+    BOOL hit = YES;//[_paddle testPoint:locationWorld];
     
     if (hit) {
         b2MouseJointDef md;

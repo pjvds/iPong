@@ -142,6 +142,7 @@
 		DA395A5D1345BD2F00A254C1 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DA395A5C1345BD2F00A254C1 /* README.md */; };
 		DAC94A991337F85A005F58F2 /* Ball.png in Resources */ = {isa = PBXBuildFile; fileRef = DAC94A981337F85A005F58F2 /* Ball.png */; };
 		DADFFED01345F4EA00551C4E /* Paddle.mm in Sources */ = {isa = PBXBuildFile; fileRef = DADFFECF1345F4EA00551C4E /* Paddle.mm */; };
+		DADFFEE4134613F500551C4E /* Ball.mm in Sources */ = {isa = PBXBuildFile; fileRef = DADFFEE3134613F300551C4E /* Ball.mm */; };
 		DAE725D213427B4D0028394E /* whitedot.png in Resources */ = {isa = PBXBuildFile; fileRef = DAE725D113427B4D0028394E /* whitedot.png */; };
 		DC6640030F83B3EA000B3E49 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */; };
 		DC6640050F83B3EA000B3E49 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640040F83B3EA000B3E49 /* OpenAL.framework */; };
@@ -473,6 +474,8 @@
 		DAC94A981337F85A005F58F2 /* Ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ball.png; sourceTree = "<group>"; };
 		DADFFECE1345F4EA00551C4E /* Paddle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Paddle.h; sourceTree = "<group>"; };
 		DADFFECF1345F4EA00551C4E /* Paddle.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Paddle.mm; sourceTree = "<group>"; };
+		DADFFEE2134613F200551C4E /* Ball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ball.h; sourceTree = "<group>"; };
+		DADFFEE3134613F300551C4E /* Ball.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Ball.mm; sourceTree = "<group>"; };
 		DAE725D113427B4D0028394E /* whitedot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whitedot.png; sourceTree = "<group>"; };
 		DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		DC6640040F83B3EA000B3E49 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -759,6 +762,8 @@
 				1F3B9A2B0EF2145700286867 /* iPongAppDelegate.mm */,
 				DADFFECE1345F4EA00551C4E /* Paddle.h */,
 				DADFFECF1345F4EA00551C4E /* Paddle.mm */,
+				DADFFEE2134613F200551C4E /* Ball.h */,
+				DADFFEE3134613F300551C4E /* Ball.mm */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1475,6 +1480,7 @@
 				50F4143910692D7D002A0D5E /* GLES-Render.mm in Sources */,
 				E0F81064120A17DF005866B8 /* RootViewController.mm in Sources */,
 				DADFFED01345F4EA00551C4E /* Paddle.mm in Sources */,
+				DADFFEE4134613F500551C4E /* Ball.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1724,11 +1730,11 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fvisibility=hidden";
 				PREBINDING = NO;
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos3.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1747,10 +1753,10 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				OTHER_CFLAGS = "-fvisibility=hidden";
 				PREBINDING = NO;
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos3.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
