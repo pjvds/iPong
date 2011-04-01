@@ -12,6 +12,11 @@
     Paddle *_leftPaddle;
     Paddle *_rightPaddle;
     Ball *_ball;
+    
+    CCLabelTTF *_leftScore;
+    CCLabelTTF *_rightScore;
+    
+    CGSize winSize;
 }
 
 + (id) scene;

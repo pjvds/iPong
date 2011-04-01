@@ -140,6 +140,7 @@
 		50F4144A10692EE7002A0D5E /* fps_images.png in Resources */ = {isa = PBXBuildFile; fileRef = 50F4144510692EE7002A0D5E /* fps_images.png */; };
 		50F4144B10692EE7002A0D5E /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 50F4144610692EE7002A0D5E /* Icon.png */; };
 		DA26C623134649C900CD5803 /* line.png in Resources */ = {isa = PBXBuildFile; fileRef = DA26C622134649C900CD5803 /* line.png */; };
+		DA26C6251346654300CD5803 /* SF Square Head.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DA26C6241346654300CD5803 /* SF Square Head.ttf */; };
 		DA395A5D1345BD2F00A254C1 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DA395A5C1345BD2F00A254C1 /* README.md */; };
 		DAC94A991337F85A005F58F2 /* Ball.png in Resources */ = {isa = PBXBuildFile; fileRef = DAC94A981337F85A005F58F2 /* Ball.png */; };
 		DADFFED01345F4EA00551C4E /* Paddle.mm in Sources */ = {isa = PBXBuildFile; fileRef = DADFFECF1345F4EA00551C4E /* Paddle.mm */; };
@@ -472,6 +473,7 @@
 		50F4144610692EE7002A0D5E /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		50F4144710692EE7002A0D5E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA26C622134649C900CD5803 /* line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = line.png; sourceTree = "<group>"; };
+		DA26C6241346654300CD5803 /* SF Square Head.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF Square Head.ttf"; sourceTree = "<group>"; };
 		DA395A5C1345BD2F00A254C1 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		DAC94A981337F85A005F58F2 /* Ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ball.png; sourceTree = "<group>"; };
 		DADFFECE1345F4EA00551C4E /* Paddle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Paddle.h; sourceTree = "<group>"; };
@@ -1004,6 +1006,7 @@
 		50F4144210692EE7002A0D5E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DA26C6241346654300CD5803 /* SF Square Head.ttf */,
 				DA26C622134649C900CD5803 /* line.png */,
 				DAE725D113427B4D0028394E /* whitedot.png */,
 				DAC94A981337F85A005F58F2 /* Ball.png */,
@@ -1468,6 +1471,7 @@
 				DAE725D213427B4D0028394E /* whitedot.png in Resources */,
 				DA395A5D1345BD2F00A254C1 /* README.md in Resources */,
 				DA26C623134649C900CD5803 /* line.png in Resources */,
+				DA26C6251346654300CD5803 /* SF Square Head.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

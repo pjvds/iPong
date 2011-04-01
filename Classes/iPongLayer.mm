@@ -26,10 +26,12 @@
 - (id)init {
     
     if ((self=[super init])) {
+        winSize = [CCDirector sharedDirector].winSize;
         
         [self setupWorld];
         [self setupGroundBody];
         [self addBackground];
+        [self spawnScoreboards];
         [self setupBall];
         [self spawnPaddles];
         
@@ -42,7 +44,6 @@
 }
 
 -(void)addBackground{
-    CGSize winSize = [CCDirector sharedDirector].winSize;
     CCSprite* lineSprite = [CCSprite spriteWithFile:@"line.png" rect:CGRectMake(0,0, 5, winSize.height*2)];
     lineSprite.position = ccp(winSize.width/2, 0);
     
@@ -60,8 +61,6 @@
 }
 
 - (void)setupGroundBody {
-    CGSize winSize = [CCDirector sharedDirector].winSize;
-    
     // Create edges around the entire screen
     b2BodyDef groundBodyDef;
     groundBodyDef.position.Set(0,0);
@@ -79,8 +78,17 @@
     _groundBody->CreateFixture(&groundBoxDef);
 }
 
+- (void)spawnScoreboards{
+    _leftScore = [CCLabelTTF labelWithString:@"0" fontName:@"SF Square Head" fontSize:64];
+    _leftScore.position = ccp(winSize.width/2 - 100,winSize.height - 45);
+    [self addChild: _leftScore];
+    
+    _rightScore = [CCLabelTTF labelWithString:@"0" fontName:@"SF Square Head" fontSize:64];
+    _rightScore.position = ccp(winSize.width/2 + 100,winSize.height - 45);
+    [self addChild: _rightScore];
+}
+
 - (void)spawnPaddles{
-    CGSize winSize = [CCDirector sharedDirector].winSize;
     
     _leftPaddle = [[Paddle alloc] initWithWorld: _world: _groundBody: ccp(50,50): CGRectMake(0,0, winSize.width/2,winSize.height)];
     [self addChild:_leftPaddle.Sprite];
