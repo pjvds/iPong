@@ -14,6 +14,34 @@
     
 }
 
++ (b2Vec2) getStartingForce{
+    return b2Vec2(10,10);
+}
+
+- (id)init {
+    
+    if ((self=[super init])) {
+        
+        [self setupWorld];
+        [self setupGroundBody];
+        [self setupBall];
+        [self setupPlayer1Brick];
+        
+        [self schedule:@selector(tick:)];
+        
+        self.isTouchEnabled = YES;
+        
+        // Restrict paddle along the x axis
+        b2PrismaticJointDef jointDef;
+        b2Vec2 worldAxis(1.0f, 0.0f);
+        jointDef.collideConnected = true;
+        jointDef.Initialize(_p1BrickBody, _groundBody, 
+                            _p1BrickBody->GetWorldCenter(), worldAxis);
+        _world->CreateJoint(&jointDef);
+    }
+    return self;
+}
+
 - (void)setupWorld {
     // Create a world
     b2Vec2 gravity = b2Vec2(0.0f, 0.0f);
@@ -90,7 +118,7 @@
     ballShapeDef.friction = 0.f;
     ballShapeDef.restitution = 1.0f;
     _ballFixture = ballBody->CreateFixture(&ballShapeDef);        
-    b2Vec2 force = [self getStartingForce];
+    b2Vec2 force = [iPongLayer getStartingForce];
     ballBody->ApplyLinearImpulse(force, ballBodyDef.position);
 }
 
@@ -146,34 +174,6 @@
         _world->DestroyJoint(_mouseJoint);
         _mouseJoint = NULL;
     }  
-}
-
-- (id)init {
-    
-    if ((self=[super init])) {
-        
-        [self setupWorld];
-        [self setupGroundBody];
-        [self setupBall];
-        [self setupPlayer1Brick];
-
-        [self schedule:@selector(tick:)];
-        
-        self.isTouchEnabled = YES;
-        
-        // Restrict paddle along the x axis
-        b2PrismaticJointDef jointDef;
-        b2Vec2 worldAxis(1.0f, 0.0f);
-        jointDef.collideConnected = true;
-        jointDef.Initialize(_p1BrickBody, _groundBody, 
-                            _p1BrickBody->GetWorldCenter(), worldAxis);
-        _world->CreateJoint(&jointDef);
-    }
-    return self;
-}
-
-- (b2Vec2) getStartingForce{
-    return b2Vec2(10,10);
 }
 
 - (void)tick:(ccTime) dt {

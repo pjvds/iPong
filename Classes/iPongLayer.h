@@ -12,7 +12,10 @@
 }
 
 + (id) scene;
++ (b2Vec2) getStartingForce;
 
-- (b2Vec2) getStartingForce;
-- (void) setupWorld;	
+- (void) setupWorld;
+- (void)setupGroundBody;
+- (void) setupBall;
+- (void)setupPlayer1Brick;
 @end
