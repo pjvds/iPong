@@ -18,6 +18,5 @@
 @property(readonly,assign) b2Fixture* Fixture;
 
 -(id) initWithWorld: (b2World*) world: (b2Body*) groundBody;
--(BOOL) testPoint: (b2Vec2) point;
 -(void)dealloc;
 @end
