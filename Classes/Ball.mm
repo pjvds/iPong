@@ -63,6 +63,9 @@
 }
 
 -(void)dealloc{
+    Sprite = NULL;
+    Body = NULL;
+    Fixture = NULL;
     [super dealloc];
 }
 
