@@ -39,8 +39,33 @@
         [[[CCDirector sharedDirector] openGLView] setMultipleTouchEnabled:YES];
         
         self.isTouchEnabled = YES;
+        
+        _debugDraw = new GLESDebugDraw(PTM_RATIO);
+        uint32 flags = 0;
+        flags += 1	* b2DebugDraw::e_shapeBit;
+        flags += 1	* b2DebugDraw::e_jointBit;
+        flags += 1	* b2DebugDraw::e_aabbBit;
+        flags += 1	* b2DebugDraw::e_pairBit;
+        flags += 1	* b2DebugDraw::e_centerOfMassBit;
+        _debugDraw->SetFlags(flags);
+        _world->SetDebugDraw(_debugDraw);
     }
     return self;
+}
+
+-(void)draw{
+    [super draw];
+    
+	glDisable(GL_TEXTURE_2D);
+	glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    
+	_world->DrawDebugData();
+    
+	// restore default GL states
+	glEnable(GL_TEXTURE_2D);
+	glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
 -(void)addBackground{

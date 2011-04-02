@@ -2,6 +2,7 @@
 #import "Box2D.h"
 #import "Paddle.h"
 #import "Ball.h"
+#import "GLES-Render.h"
 
 @interface iPongLayer : CCLayer {  
     b2MouseJoint *_mouseJoint;
@@ -20,6 +21,7 @@
     CCLabelTTF *_rightScoreLabel;
     
     CGSize winSize;
+    GLESDebugDraw *_debugDraw;
 }
 
 + (id) scene;
