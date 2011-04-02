@@ -10,6 +10,18 @@ The following stuff is used to create this Pong implementation for IOS:
 * Box2D
 * Freetime in an hotel in Rotterdam
 
+# Project structure
+All real logic and non scaffolding code can be found in three classes.
+
+## iPongLayer
+Main entry point. Bootstraps all the game objects and is the layer where the game is drawn on. It also holds and manages the game score.
+
+## Paddle
+The paddle game object. Contains logic to move itself on touch.
+
+## Ball
+The ball game object. It contains logic to respawn.
+
 # What you need to know about Box2D
 Box2D works with several fundamental objects. We briefly define these objects here and more details are given later in this document.
 
