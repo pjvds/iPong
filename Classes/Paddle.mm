@@ -36,7 +36,7 @@
         b2FixtureDef shapeDef;
         shapeDef.shape = &paddleShape;        
         shapeDef.density = 5.0f;
-        shapeDef.friction = 0.0f;
+        shapeDef.friction = 10.0f;
         shapeDef.restitution = 0.1f;
         Fixture = Body->CreateFixture(&shapeDef);
         

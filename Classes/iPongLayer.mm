@@ -95,6 +95,7 @@
 
     b2FixtureDef groundBoxDef;
     groundBoxDef.shape = &groundBox;
+    groundBoxDef.friction = 0.0f;
     
     // top wall.
     groundBox.SetAsEdge(b2Vec2(0,0), b2Vec2(winSize.width/PTM_RATIO, 0));
@@ -110,9 +111,30 @@
     _leftScoreLabel.position = ccp(winSize.width/2 - 100,winSize.height - 45);
     [self addChild: _leftScoreLabel];
     
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(higherLeftScore)
+     name:@"LeftScores"
+     object:nil ];
+    
+    
     _rightScoreLabel = [CCLabelTTF labelWithString:@"0" fontName:@"SF Square Head" fontSize:64];
     _rightScoreLabel.position = ccp(winSize.width/2 + 100,winSize.height - 45);
     [self addChild: _rightScoreLabel];
+    
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(higherRightScore)
+     name:@"RightScores"
+     object:nil ];
+}
+
+-(void)higherLeftScore{
+    [_leftScoreLabel setString: [NSString stringWithFormat:@"%d",++_leftScore]];
+    
+}
+-(void)higherRightScore{
+    [_rightScoreLabel setString: [NSString stringWithFormat:@"%d",++_rightScore]];
 }
 
 - (void)spawnPaddles{
@@ -139,20 +161,6 @@
                                   b->GetPosition().y * PTM_RATIO);
             sprite.rotation = -1 * CC_RADIANS_TO_DEGREES(b->GetAngle());
         }
-    }
-    
-    b2Vec2 ballPos = _ball.Body->GetPosition();
-    ballPos *= PTM_RATIO;
-    
-    
-    if(ballPos.x < 0){
-        _rightScore++;
-        [_rightScoreLabel setString: [NSString stringWithFormat:@"%d",_rightScore]];
-        [_ball respawnLeft];
-    } else if(ballPos.x > winSize.width){
-        _leftScore++;
-        [_leftScoreLabel setString: [NSString stringWithFormat:@"%d",_leftScore]];
-        [_ball respawnRight];
     }
 }
 
