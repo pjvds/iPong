@@ -23,7 +23,7 @@
         Body = world->CreateBody(&bodyDef);
         
         b2CircleShape shape;
-        shape.m_radius = 26.0/PTM_RATIO;
+        shape.m_radius = (Sprite.size.width/2)/PTM_RATIO;
         
         b2FixtureDef shapeDef;
         shapeDef.shape = &shape;        
