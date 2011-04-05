@@ -164,7 +164,10 @@
         if(sprite != NULL) {
             sprite.position = ccp(b->GetPosition().x * PTM_RATIO,
                                   b->GetPosition().y * PTM_RATIO);
-            sprite.rotation = -1 * CC_RADIANS_TO_DEGREES(b->GetAngle());
+            
+            // Do not update visual angle
+            // Since we have a squal ball.
+            // sprite.rotation = -1 * CC_RADIANS_TO_DEGREES(b->GetAngle());
         }
     }
 }
