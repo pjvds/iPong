@@ -1,11 +1,12 @@
 #define PTM_RATIO 32
 #import "Ball.h"
 #import "CCScheduler.h"
+#include <stdlib.h>
 
 @implementation Ball
 @synthesize Sprite, Body, Fixture;
 
--(id) spawn: (CCLayer*) layer: (b2World*) world: (b2Body*) groundBody: (b2Vec2) force {
+-(id) spawn: (CCLayer*) layer: (b2World*) world: (b2Body*) groundBody {
     if ((self=[super init])) {
         _winSize = [CCDirector sharedDirector].winSize;
         
@@ -23,7 +24,7 @@
         Body = world->CreateBody(&bodyDef);
         
         b2CircleShape shape;
-        shape.m_radius = (Sprite.size.width/2)/PTM_RATIO;
+        shape.m_radius = ([Sprite boundingBox].size.width/2)/PTM_RATIO;
         
         b2FixtureDef shapeDef;
         shapeDef.shape = &shape;        
@@ -32,7 +33,6 @@
         shapeDef.restitution = 1.0f;
         Fixture = Body->CreateFixture(&shapeDef);
         
-        Body->ApplyLinearImpulse(force, Body->GetPosition());
         [[CCScheduler sharedScheduler] scheduleSelector:@selector(tick:) forTarget:self interval:0 paused:FALSE];
     }
     return self;
@@ -67,18 +67,43 @@
     }
 }
 
--(void) respawnLeft {
+-(void) respawnLeftOrRight {
+    int r = arc4random() % 2;
+    
+    if(r==1) {
+        [self respawnLeft];
+    } else {
+        [self respawnRight];
+    }
+}
+
+-(void) respawn: (float)withAngle{
     [self reset];
-	
-    b2Vec2 force = b2Vec2(-10,10);
-    Body->ApplyLinearImpulse(force, Body->GetPosition());
+    const int speed = 35;
+    
+    double x = sin(withAngle * M_PI / 180) * speed;
+    double y = cos(withAngle * M_PI / 180) * speed;
+    
+    b2Vec2 force = b2Vec2(x,y);
+    Body->ApplyLinearImpulse(force, Body->GetPosition());    
+}
+
+-(void) respawnLeft {
+    int speed = 35;
+    int margin = 40;
+    int r = arc4random() % (180-margin);
+    r += (180-(margin/2));
+
+    [self respawn: r];
 }
 
 -(void) respawnRight{
-    [self reset];
+    int speed = 35;
+    int margin = 40;
+    int r = arc4random() % (180-margin);
+    r += (margin/2);
     
-    b2Vec2 force = b2Vec2(10,0);
-    Body->ApplyLinearImpulse(force, Body->GetPosition());
+    [self respawn: r];
 }
 
 -(void)dealloc{

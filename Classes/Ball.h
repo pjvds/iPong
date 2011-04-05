@@ -12,7 +12,8 @@
 @property(readonly,assign) b2Body* Body;
 @property(readonly,assign) b2Fixture* Fixture;
 
--(id) spawn: (CCLayer*) layer: (b2World*) world: (b2Body*) groundBody: (b2Vec2) force;
+-(id) spawn: (CCLayer*) layer: (b2World*) world: (b2Body*) groundBody;
+-(void) respawnLeftOrRight;
 -(void) respawnLeft;		
 -(void) respawnRight;
 -(void)dealloc;

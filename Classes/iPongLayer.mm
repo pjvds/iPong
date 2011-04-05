@@ -53,6 +53,8 @@
     return self;
 }
 
+
+#ifdef DRAW_DEBUG_INFO
 -(void)draw{
     [super draw];
     
@@ -69,6 +71,7 @@
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glDisableClientState(GL_VERTEX_ARRAY);
 }
+#endif
 
 -(void)addBackground{
     CCSprite* lineSprite = [CCSprite spriteWithFile:@"line.png" rect:CGRectMake(0,0, 5, winSize.height*2)];
@@ -140,7 +143,6 @@
 }
 
 - (void)spawnPaddles{
-    
     _leftPaddle = [[Paddle alloc] initWithWorld: _world: _groundBody: ccp(50,50): CGRectMake(0,0, winSize.width/2,winSize.height)];
     [self addChild:_leftPaddle.Sprite];
     
@@ -149,7 +151,8 @@
 }
 
 - (void) setupBall{
-    _ball = [[Ball alloc] spawn:self :_world : _groundBody : b2Vec2(10,10)];
+    _ball = [[Ball alloc] spawn:self :_world : _groundBody];
+    [_ball respawnLeftOrRight];
 }
 
 - (void)tick:(ccTime) dt {
